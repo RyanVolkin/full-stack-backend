@@ -11,15 +11,7 @@ app.use(express.json());
 
 app.use("/auth", authRoutes);
 app.use("/notes", noteRoutes);
-
-// Serve static files from Vue build (only in production)
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../client/dist")));
-  // SPA fallback - redirect to index.html for all non-API routes
-  app.use((req, res) => {
-    res.sendFile(path.join(__dirname, "../client/dist/index.html"));
-  });
-}
+app.use(cors());
 
 mongoose
   .connect(process.env.MONGODB_CONNECTION_STRING)
